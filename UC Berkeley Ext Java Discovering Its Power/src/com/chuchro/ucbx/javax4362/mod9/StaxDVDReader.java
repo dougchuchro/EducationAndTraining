@@ -2,15 +2,13 @@ package com.chuchro.ucbx.javax4362.mod9;
 
 import javax.xml.stream.*;
 import java.io.*;
-import java.util.*;
 
 public class StaxDVDReader {
 	public void read(String filepath) {
 		try {
 			FileInputStream fileInputStream = new FileInputStream(filepath);
 			XMLInputFactory factory = XMLInputFactory.newInstance();
-			XMLStreamReader xmlStreamReader = factory
-					.createXMLStreamReader(fileInputStream);
+			XMLStreamReader xmlStreamReader = factory.createXMLStreamReader(fileInputStream);
 			while (xmlStreamReader.hasNext()) {
 				readDVDList(xmlStreamReader);
 			}
@@ -40,8 +38,7 @@ public class StaxDVDReader {
 
 		int nAttributes = reader.getAttributeCount();
 		String avalue = reader.getAttributeValue(0);
-		System.out.println("attribute  value: " + avalue + " attribute count: "
-				+ nAttributes);
+		System.out.println("attribute  value: " + avalue + " attribute count: "	+ nAttributes);
 
 		while (reader.hasNext()) {
 			int eventCode = reader.next();
@@ -56,8 +53,7 @@ public class StaxDVDReader {
 				break;
 			case XMLStreamReader.CHARACTERS:
 				value = reader.getText();
-				System.out
-						.println("Element  name= " + name + " value=" + value);
+				System.out.println("Element  name= " + name + " value=" + value);
 				break;
 			}
 		}
