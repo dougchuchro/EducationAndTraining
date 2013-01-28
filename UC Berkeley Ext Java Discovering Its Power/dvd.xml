@@ -86,7 +86,7 @@
    <price>15.25</price>
    <release_year>1957</release_year>
   </DVD>
-  <DVD id="8">
+  <DVD id="9">
    <title>The Dark Knight</title>
    <performers>
     <performer>Christian Bale</performer>
@@ -97,7 +97,7 @@
    <price>12.55</price>
    <release_year>2008</release_year>
   </DVD>
-  <DVD id="9">
+  <DVD id="10">
    <title>Schindler's List</title>
    <performers>
     <performer>Liam Neeson</performer>
@@ -108,7 +108,7 @@
    <price>12.55</price>
    <release_year>1993</release_year>
   </DVD>
-  <DVD id="10">
+  <DVD id="11">
    <title>The Lord of the Rings: The Return of the King</title>
    <performers>
     <performer>Elijah Wood</performer>
@@ -119,7 +119,7 @@
    <price>12.55</price>
    <release_year>2003</release_year>
   </DVD>
-  <DVD id="11">
+  <DVD id="12">
    <title>Fight Club</title>
    <performers>
     <performer>Brad Pitt</performer>
@@ -130,7 +130,7 @@
    <price>9.55</price>
    <release_year>1999</release_year>
   </DVD>
-  <DVD id="12">
+  <DVD id="13">
    <title>Star Wars: Episode V - The Empire Strikes Back</title>
    <performers>
     <performer>Mark Hamill</performer>
