@@ -14,14 +14,17 @@ public class Game {
 	
 	public void comeOutRoll()	{
 		dice.rollDice();
+		dice.printDice();
 		switch (dice.rollSum)	{
 		case (7):
 		case (11): 
+			System.out.println("Come out winner!");
 			gameStatus = GameStatus.WON;		// come out roll winner!
 			break;
 		case (2):
 		case (3):
 		case (12):
+			System.out.println("Come out loser!");
 			gameStatus = GameStatus.LOST;		// crap out ... lose!
 			break;		
 		case (4):
@@ -51,14 +54,9 @@ public class Game {
 	}
 	
 	public void printPoint()	{
-		System.out.println("Point set to: " + this.point);
+		System.out.println("Point set to: " + point);
 	}
 	
-	public void printDice()	{
-		System.out.println("RollSum = " + dice.rollSum);
-		System.out.println("D1 = " + dice.d1.side + dice.d1.cSide);
-		System.out.println("D2 = " + dice.d2.side + dice.d2.cSide);
-	}
 	public enum GameStatus {
 		NOT_STARTED, POINT_SET, WON, LOST
 	}

@@ -1,8 +1,6 @@
 package com.chuchro.ucbx.javax4362.craps;
 
-import java.io.BufferedReader;
-//import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class Session {
 	public Game game;
@@ -31,11 +29,20 @@ public class Session {
 	public void play()	{
 		while (!cashedOut)	{
 			game = new Game();
+			PassLineBet plb = new PassLineBet(chipCount);
+			chipCount = chipCount - plb.amount;
 			game.comeOutRoll();
-			game.printPoint();
 			while (game.gameStatus == Game.GameStatus.POINT_SET)	{
+				game.printPoint();
 				game.pointRoll();
-				game.printDice();
+				game.dice.printDice();
+			}
+			if (game.gameStatus == Game.GameStatus.WON)	{
+				chipCount = chipCount + plb.amount;
+				chipCount = chipCount + plb.payoutWinner();
+			}
+			if (game.gameStatus == Game.GameStatus.LOST)	{
+				plb.deductLoser();
 			}
 			System.out.println("Game status: " + game.gameStatus);
 			printChipCount();
