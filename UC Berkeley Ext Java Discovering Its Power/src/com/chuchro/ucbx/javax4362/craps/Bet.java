@@ -7,7 +7,7 @@ abstract class Bet {
 	public String	betName;		// name of the bet, ex: "Pass Line bet", "Come line bet", "Field bet"
 	public int		amount;			// amount of the bet
 	public double	payoutRatio;	// expressed as x/y, how much the house pays ($x) for every $y bet, 
-									// ex: 6/5 payout pays $6 on a $5 bet
+									// ex: 6/5 pays $6 on a $5 bet
 	public int[]	winners;		// all the rolls that win this bet
 	public int[]	losers;			// all the rolls that lose this bet
 	public BetStatus betStatus;		// current status of this bet, based on BetStatus enumeration defined below
@@ -25,7 +25,7 @@ abstract class Bet {
 		this.amount			= promptBetAmount();
 		this.betStatus		= Bet.BetStatus.BET_ON;
 	}
-	
+
 	public int payoutWinner()	{
 		int payoutAmt =(int)Math.round(amount * payoutRatio);
 		System.out.println(betName + " winner!");
@@ -33,16 +33,15 @@ abstract class Bet {
 		betStatus = BetStatus.BET_SETTLED;
 		return payoutAmt;
 	}
-	
+
 	public int deductLoser()	{
 		System.out.println("Sorry, you lost your " + betName);
 		System.out.println(amount + " is deducted from your chip count");
 		betStatus = BetStatus.BET_SETTLED;
 		return amount;
 	}
-	
-//	public int promptBetAmount(String betName, int maxAmt)	{
-	public int promptBetAmount()	{
+
+	private int promptBetAmount()	{
 		int betAmount = -1;
 		System.out.println("Place your " + betName + " , which must be greater than $" + minAmount);
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in), 1);
@@ -89,5 +88,5 @@ abstract class Bet {
 		BET_SETTLED,	// the bet has been either won or lost and the player has been credited or debited, bet is no longer relevant
 		BET_PULLED,		// the player has chosen to take the bet off the table (only valid for certain bet types)
 	}
-	
+
 }

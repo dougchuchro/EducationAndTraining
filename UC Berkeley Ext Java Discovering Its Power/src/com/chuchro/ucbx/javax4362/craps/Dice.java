@@ -8,13 +8,13 @@ public class Dice {
 	public Die d1;
 	public Die d2;
 	public int rollSum;
-	
+
 	public Dice()	{
 		d1 = new Die();
 		d2 = new Die();
 		rollSum = 0;
 	}
-	
+
 	public int rollDice()	{
 		System.out.println("Ready to roll ... press enter to roll the dice");
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in), 1);	

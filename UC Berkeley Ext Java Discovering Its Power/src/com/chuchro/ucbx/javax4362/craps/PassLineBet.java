@@ -10,7 +10,6 @@ public class PassLineBet extends Bet {
 	public static int[] losers = { 7 };				// only loser for passline bet is to crap out
 	public static int amountMultiple = 1;			// pass line bet can be any amount greater than minimum
 	
-//	@SuppressWarnings("static-access")
 	PassLineBet(int maxAmt)	{
 		super(betName, minAmount, maxAmt, amountMultiple);
 		super.payoutRatio		= PassLineBet.payoutRatio;

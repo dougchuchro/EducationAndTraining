@@ -11,7 +11,7 @@ public class Game {
 		point = 0;
 		gameStatus = GameStatus.NOT_STARTED;
 	}
-	
+
 	public void comeOutRoll()	{
 		dice.rollDice();
 		dice.printDice();
@@ -40,7 +40,7 @@ public class Game {
 		}
 		return;
 	}
-	
+
 	public void pointRoll()	{
 		dice.rollDice();
 		if (dice.rollSum == point) {	// hit the point ... winner!
@@ -52,11 +52,11 @@ public class Game {
 		}
 		return;
 	}
-	
+
 	public void printPoint()	{
 		System.out.println("Point set to: " + point);
 	}
-	
+
 	public enum GameStatus {
 		NOT_STARTED, POINT_SET, WON, LOST
 	}

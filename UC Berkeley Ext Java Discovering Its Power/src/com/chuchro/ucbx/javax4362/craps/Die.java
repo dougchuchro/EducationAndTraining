@@ -7,7 +7,7 @@ public class Die {
 	public DiceNumber cSide;	// English word for the number of "side" (above)
 	private Random random;
 	private int numSidesOfDie = 6;
-	
+
 	public Die()	{
 		side = 0; // die not yet rolled
 		cSide = null;
