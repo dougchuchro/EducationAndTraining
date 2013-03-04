@@ -13,11 +13,12 @@ public class Game {
 	}
 
 	public void comeOutRoll()	{
+		System.out.println("Coming out!");
 		dice.rollDice();
 		dice.printDice();
 		switch (dice.rollSum)	{
 		case (7):
-		case (11): 
+		case (11):
 			System.out.println("Come out winner!");
 			gameStatus = GameStatus.WON;		// come out roll winner!
 			break;
