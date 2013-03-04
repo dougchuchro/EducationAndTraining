@@ -1,6 +1,6 @@
 package com.chuchro.ucbx.javax4362.craps;
 
-public class PassLineBet extends Bet {
+public class PassLineBet extends MultiRollBet {
 	public static String betName = "Pass Line bet";
 	public static int 	 minAmount = 5;				// minimum $5 bet
 	public static double payoutRatio = 1/1;			// payout for passline bet is 1:1
@@ -15,22 +15,13 @@ public class PassLineBet extends Bet {
 	PassLineBet(int maxAmt)	{
 		super(betName, minAmount, maxAmt, amountMultiple);
 		super.payoutRatio		= PassLineBet.payoutRatio;
-		// Set the winning roll of a Pass Line bet: 7
+		// Set the winning roll of a Pass Line bet: 7 and 11
 		super.winners.add(new Integer(7));
+		super.winners.add(new Integer(11));
 		// Set the losing rolls of a Pass Line bet: 2, 3, and 12
 		super.losers.add(new Integer(2));
 		super.losers.add(new Integer(3));
 		super.losers.add(new Integer(12));
-	}
-	
-	public void setPoint(int point)	{
-		// Clear out the initial winner (7) and add the point as the only winning roll
-		super.winners.clear();
-		super.winners.add(new Integer(point));
-		// Clear out the initial losing rolls (2,3,12) and add 7 as the only losing roll
-		super.losers.clear();
-		super.losers.add(new Integer(7));
-		
 	}
 	
 }

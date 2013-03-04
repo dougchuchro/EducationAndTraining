@@ -33,7 +33,7 @@ public class Session {
 			game = new Game();
 			
 			// Prompt for a bet prior to the come out roll (Pass Line or Don't Pass)
-			Bet ppb = getPrePointBet();
+			MultiRollBet ppb = getPrePointBet();
 			if (ppb != null)	{
 				bets.add(ppb);
 				chipCount = chipCount - ppb.amount;
@@ -41,27 +41,28 @@ public class Session {
 			
 			// Start the game with the "Come Out" roll
 			game.comeOutRoll();
-			chipCount = chipCount - checkBets(game.dice);
+			chipCount = chipCount + checkBets(game.dice);
+			
+			// If the come out roll sets the POINT and there was a pre-Point bet made, 
+			// then reset the winners & losers of the pre-Point bet
+			if (game.gameStatus == Game.GameStatus.POINT_SET && ppb != null)	{
+				// Note that even though the setPoint() method alters the ppb object, we don't need to
+				// replace it with the current object in the bets ArrayList because it is, in fact, already
+				// pointing to the very same object in memory.  So we can use the ppb handle to alter the item
+				// in the bets ArrayList without any manipulation to the ArrayList itself.
+				ppb.setPoint(game.point);
+			}
 			
 			// Keep rolling until the GameStatus is WON or LOST
 			while (game.gameStatus == Game.GameStatus.POINT_SET)	{
 				game.printPoint();
 				game.pointRoll();
 				game.dice.printDice();
-				chipCount = checkBets(game.dice);
+				chipCount = chipCount + checkBets(game.dice);
 			}
 			
-/*			if (game.gameStatus == Game.GameStatus.WON)	{
-				chipCount = chipCount + ppb.amount;
-				chipCount = chipCount + ppb.payoutWinner();
-			}
-			if (game.gameStatus == Game.GameStatus.LOST)	{
-				ppb.deductLoser();
-			}
-*/			
-			System.out.println("Game status: " + game.gameStatus);
 			printChipCount();
-			System.out.println("If you'd like to quit playing and cash out, enter q");
+			System.out.println("If you'd like to quit playing and cash out, enter \"q\", else just press enter.");
 			String resp = "";
 			try {
 				resp = stdin.readLine();
@@ -74,8 +75,8 @@ public class Session {
 		return;
 	}
 	
-	private Bet getPrePointBet()	{
-		Bet bet = null;
+	private MultiRollBet getPrePointBet()	{
+		MultiRollBet bet = null;
 		System.out.println("New game, place you bet.  \n" +
 				"Enter \"p\" for Pass Line bet or \"d\" for Don't Pass bet, " +
 				"or just hit return for no initial bet");

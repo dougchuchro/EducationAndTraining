@@ -34,7 +34,7 @@ abstract class Bet {
 
 	private int promptBetAmount()	{
 		int betAmount = -1;
-		System.out.println("Place your " + betName + " , which must be greater than $" + minAmount);
+		System.out.println("Place your " + betName + " , which must be at least $" + minAmount);
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in), 1);
 		while (betAmount == -1)	{
 			try {
@@ -65,15 +65,16 @@ abstract class Bet {
 
 	public int payoutWinner()	{
 		int payoutAmt =(int)Math.round(amount * payoutRatio);
-		System.out.println(betName + " winner!");
-		System.out.println("$" + payoutAmt + " is added to your chip count");
-		betStatus = BetStatus.BET_SETTLED;
-		return payoutAmt;
+		System.out.println("Your " + betName + " of $" + amount + " is a  winner!");
+		System.out.println("The bet winnings of $" + payoutAmt + ", plus your original " +
+							" bet amount of $" + amount + " is added to your chip count");
+		betStatus = BetStatus.BET_WON;
+		return payoutAmt + amount;
 	}
 
 	public int deductLoser()	{
 		System.out.println("Sorry, you lost your " + betName + " of $" + amount);
-		betStatus = BetStatus.BET_SETTLED;
+		betStatus = BetStatus.BET_LOST;
 		return amount;
 	}
 
@@ -91,21 +92,20 @@ abstract class Bet {
 		if (this.betStatus != Bet.BetStatus.BET_ON)	{
 			return result;
 		}
+
 		// check to see if this roll was a winner
-		for (int winner : winners)	{
-			if (dice.rollSum == winner)	{
+		if (winners.contains(dice.rollSum)) {
 				result = payoutWinner();
 				return result;
-			}
 		}
+
 		// check to see if this roll was a loser
-		for (int loser : losers)	{
-			if (dice.rollSum == loser)	{
-				result = deductLoser();
-				return result;
-			}
+		if (losers.contains(dice.rollSum)) {
+			// because we deducted the bet amount from the chip count when the bet was placed
+			// we don't need to deduct it again here, so if have a loser match, just return 0
+			deductLoser();
 		}
-		return amount; 
+		return result;
 	}
 	
 	public enum BetStatus	{
@@ -113,6 +113,7 @@ abstract class Bet {
 		BET_OFF,		// the bet is still on the table but will be off for the next roll, can neither be won nor lost
 		BET_WON,		// the previous roll has been evaluated as a winner for this bet, player will be credited
 		BET_LOST,		// the previous roll has been evaluated as a loser for this bet, house will take the player's bet $
+		BET_PUSHED,		// the previous roll has been evaluated as a "push" for this bet, player gets bet amount back but no winnings
 		BET_SETTLED,	// the bet has been either won or lost and the player has been credited or debited, bet is no longer relevant
 		BET_PULLED,		// the player has chosen to take the bet off the table (only valid for certain bet types)
 	}
