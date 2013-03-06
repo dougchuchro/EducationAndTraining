@@ -33,7 +33,7 @@ public class Session {
 			game = new Game();
 			
 			// Prompt for a bet prior to the come out roll (Pass Line or Don't Pass)
-			MultiRollBet ppb = getPrePointBet();
+			LineBet ppb = getPrePointBet();
 			if (ppb != null)	{
 				bets.add(ppb);
 				chipCount = chipCount - ppb.amount;
@@ -80,8 +80,8 @@ public class Session {
 		System.out.println("Thanks for playing. You chip balance is: $" + chipCount);
 	}
 	
-	private MultiRollBet getPrePointBet()	{
-		MultiRollBet bet = null;
+	private LineBet getPrePointBet()	{
+		LineBet bet = null;
 		System.out.println("New game, place you bet.  \n" +
 				"Enter \"p\" for Pass Line bet or \"d\" for Don't Pass bet, " +
 				"or just hit return for no initial bet");
@@ -102,7 +102,7 @@ public class Session {
 		return bet;
 	}
 	
-	private OddsBet getOddsBet(MultiRollBet b, int point)	{
+	private OddsBet getOddsBet(LineBet b, int point)	{
 		OddsBet ob = null;
 		System.out.println("Would you like to place odds on your " + b.betName + "? (y/n)");
 		String resp = "";

@@ -31,7 +31,7 @@ public class OddsBet extends Bet {
 	
 	/**	Provides a static lookup table of Line bet points and their corresponding Odds bet amount multiple.
 	 * 	This table (in the form of a Map) is populated by the static method createPointAmountMultipleMap().
-	 * 	@see 	*/
+	 * 	@see	#createPointAmountMultipleMap()*/
 	public static final Map<Integer, Integer> POINT_AMOUNT_MULTIPLE_MAP = createPointAmountMultipleMap();
 	private static Map<Integer, Integer> createPointAmountMultipleMap()	{
 		Map<Integer, Integer> tmpMap = new HashMap<Integer, Integer>();
@@ -44,7 +44,9 @@ public class OddsBet extends Bet {
 		return Collections.unmodifiableMap(tmpMap);
 	}
 
-	/**		*/
+	/**	Provides a static lookup table of Line bet points and their corresponding Odds bet Payout Ratio.
+	 * 	This table (in the form of a Map) is populated by the static method createPointPayoutRatioMap().
+	 * 	@see	#createPointPayoutRatioMap()*/
 	public static final Map<Integer, Double> POINT_PAYOUT_RATIO_MAP = createPointPayoutRatioMap();
 	private static Map<Integer, Double> createPointPayoutRatioMap()	{
 		Map<Integer, Double> tmpMap = new HashMap<Integer, Double>();
@@ -57,7 +59,13 @@ public class OddsBet extends Bet {
 		return Collections.unmodifiableMap(tmpMap);
 	}
 
-	OddsBet(MultiRollBet b, int point)	{
+	/**
+	 * Constructor for an Odds bet, which calls the super (Bet) constructor, then sets the Payout Ratio, winning 
+	 * and losing rolls.
+	 * @param b		Line bet to which this Odds bet is attached.
+	 * @param point Point set at the come out roll of the Line bet.
+	 */
+	OddsBet(LineBet b, int point)	{
 		super(betName, 1, b.amount*MAX_ODDS_MULTIPLE, POINT_AMOUNT_MULTIPLE_MAP.get(point));
 		super.payoutRatio = POINT_PAYOUT_RATIO_MAP.get(point);
 		super.winners.add(new Integer(point));

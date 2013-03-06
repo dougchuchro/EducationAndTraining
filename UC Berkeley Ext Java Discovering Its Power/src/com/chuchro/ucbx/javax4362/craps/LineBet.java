@@ -13,7 +13,7 @@ package com.chuchro.ucbx.javax4362.craps;
  * @see com.chuchro.ucbx.javax4362.craps.DontComeBet
  *
  */
-public abstract class MultiRollBet extends Bet {
+public abstract class LineBet extends Bet {
 	/** The Odds Bet that is optionally attached to a Line Bet of any type	*/
 	public OddsBet 			 oddsBet;
 
@@ -24,7 +24,7 @@ public abstract class MultiRollBet extends Bet {
 	 * @param maxAmt
 	 * @param amountMultiple
 	 */
-	MultiRollBet(String betName, int minAmt, int maxAmt, int amountMultiple) {
+	LineBet(String betName, int minAmt, int maxAmt, int amountMultiple) {
 		super(betName, minAmt, maxAmt, amountMultiple);
 	}
 
@@ -46,7 +46,7 @@ public abstract class MultiRollBet extends Bet {
 	/**
 	 * Resets the winning and losing rolls for the "Don't" bets: DontPassBet and DontComeBet
 	 * These two classes will override setPoint() to call this method.
-	 * @param point
+	 * @param point	The point set be the initial (come out) roll.
 	 */
 	public void setDontPoint(int point)	{
 		// Clear out the initial winner (7) and add the point as the only winning roll
@@ -59,12 +59,17 @@ public abstract class MultiRollBet extends Bet {
 	
 	/**
 	 * Sets the Odds Bet that is optionally attached to this Line Bet
-	 * @param ob
+	 * @param oddsBet	Odds Bet object to attach to this Line Bet
 	 */
 	public void setOddsBet(OddsBet oddsBet)	{
 		this.oddsBet = oddsBet;
 	}
 	
+	/**
+	 * Check if the bet won or lost based on the roll of the Dice that was passed, then check the associated Odds bet
+	 * @param dice		The dice roll result to be used to determine the bet outcome.
+	 * @return result	If the bet was a winner, the amount won, plus the amount of the associated Odds bet, if there is one.
+	 */
 	public int checkBet(Dice dice)	{
 		// First, run the standard check: Bet.checkBet()
 		int result = super.checkBet(dice);
@@ -74,6 +79,5 @@ public abstract class MultiRollBet extends Bet {
 		}
 		return result;
 	}
-	
-
+		
 }

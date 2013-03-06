@@ -1,6 +1,6 @@
 package com.chuchro.ucbx.javax4362.craps;
 
-public class PassLineBet extends MultiRollBet {
+public class PassLineBet extends LineBet {
 	public static String betName = "Pass Line bet";
 	public static int 	 minAmount = 5;				// minimum $5 bet
 	public static double payoutRatio = 1/1;			// payout for passline bet is 1:1
