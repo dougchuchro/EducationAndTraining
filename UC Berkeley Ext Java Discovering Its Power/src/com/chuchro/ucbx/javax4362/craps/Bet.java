@@ -6,19 +6,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 abstract class Bet {
-	public String		betName;		// name of the bet, ex: "Pass Line bet", "Come line bet", "Field bet"
-	public BetStatus	betStatus;		// current status of this bet, based on BetStatus enumeration defined below
-	public int			amount;			// amount of the bet
-	public double		payoutRatio;	// expressed as x/y, how much the house pays ($x) for every $y bet, 
-										// ex: 6/5 pays $6 on a $5 bet
-	public List<Integer>	winners;	// all the rolls that win this bet
-	public List<Integer>	losers;		// all the rolls that lose this bet
-	public int		minAmount;			// minimum amount of bet
-	public int		maxAmount;			// maximum amount of bet
-	public int 		amountMultiple;		// some bets can only be a multiple of a certain number for the odds 
-										// payout to not be fractional therefore the house stipulates that 
-										// the bet must be a multiple of a certain amount (1=no multiple requirement) 
-
+	/**	Name of the bet, ex: "Pass Line bet", "Come line bet", "Field bet"	*/
+	public String		betName;
+	/**	Current status of this bet, based on BetStatus enumeration defined below	*/
+	public BetStatus	betStatus;
+	/** Amount of the bet	*/
+	public int			amount;
+	/** Expressed as x/y, how much the house pays ($x) for every $y bet, ex: 6/5 pays $6 on a $5 bet	*/
+	public double		payoutRatio;
+	/**	All the rolls that win this bet	*/
+	public List<Integer>	winners;
+	/**	All the rolls that lose this bet	*/
+	public List<Integer>	losers;
+	/**	Minimum amount of bet	*/
+	public int		minAmount;
+	/**	Maximum amount of bet	*/
+	public int		maxAmount;
+	/**	Some bets can only be a multiple of a certain number for the odds 
+	*	payout to not be fractional therefore the house stipulates that 
+	*	the bet must be a multiple of a certain amount (1=no multiple requirement) */
+	public int 		amountMultiple;
+	
 	Bet(String betName, int minAmt, int maxAmt, int amountMultiple)	{
 		this.betName		= betName;
 		this.minAmount		= minAmt;
@@ -110,7 +118,7 @@ abstract class Bet {
 	
 	public enum BetStatus	{
 		BET_ON,			// the bet is currently on and will be evaluated after the next roll
-		BET_OFF,		// the bet is still on the table but will be off for the next roll, can neither be won nor lost
+		BET_OFF,		// the bet is still on the table but will be inactive for the next roll, can neither be won nor lost
 		BET_WON,		// the previous roll has been evaluated as a winner for this bet, player will be credited
 		BET_LOST,		// the previous roll has been evaluated as a loser for this bet, house will take the player's bet $
 		BET_PUSHED,		// the previous roll has been evaluated as a "push" for this bet, player gets bet amount back but no winnings

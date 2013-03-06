@@ -6,11 +6,7 @@ public class PassLineBet extends MultiRollBet {
 	public static double payoutRatio = 1/1;			// payout for passline bet is 1:1
 	public static int[]  losers = { 7 };			// only loser for passline bet is to crap out
 	public static int 	 amountMultiple = 1;		// pass line bet can be any amount greater than minimum
-	public Bet 			 passLineOddsBet;			// This bet can only be made after the point is set and
-													// has a payout ratio exatly that of the probability of
-													// hitting the point.  For example, if the point is 6
-													// the probability of hitting the point before crapping
-													// out if 5:6, so a $5 bet wins $6
+
 	
 	PassLineBet(int maxAmt)	{
 		super(betName, minAmount, maxAmt, amountMultiple);

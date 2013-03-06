@@ -1,4 +1,5 @@
 package com.chuchro.ucbx.javax4362.craps;
+
 /**
  * This abstract class represents all types of bets that may require multiple rolls to be determined.
  * Bets of this type will be represented by their own class that extend this class and include: PassLineBet,
@@ -13,7 +14,16 @@ package com.chuchro.ucbx.javax4362.craps;
  *
  */
 public abstract class MultiRollBet extends Bet {
+	/** The Odds Bet that is optionally attached to a Line Bet of any type	*/
+	public OddsBet 			 oddsBet;
 
+	/**
+	 * Default constructor, calls super
+	 * @param betName
+	 * @param minAmt
+	 * @param maxAmt
+	 * @param amountMultiple
+	 */
 	MultiRollBet(String betName, int minAmt, int maxAmt, int amountMultiple) {
 		super(betName, minAmt, maxAmt, amountMultiple);
 	}
@@ -31,7 +41,6 @@ public abstract class MultiRollBet extends Bet {
 		// Clear out the initial losing rolls (2,3,12) and add 7 as the only losing roll
 		super.losers.clear();
 		super.losers.add(new Integer(7));
-		
 	}
 
 	/**
@@ -45,8 +54,26 @@ public abstract class MultiRollBet extends Bet {
 		super.winners.add(new Integer(7));
 		// Clear out the initial losing rolls (2,3,12) and add 7 as the only losing roll
 		super.losers.clear();
-		super.losers.add(new Integer(point));
-		
+		super.losers.add(new Integer(point));	
 	}
+	
+	/**
+	 * Sets the Odds Bet that is optionally attached to this Line Bet
+	 * @param ob
+	 */
+	public void setOddsBet(OddsBet oddsBet)	{
+		this.oddsBet = oddsBet;
+	}
+	
+	public int checkBet(Dice dice)	{
+		// First, run the standard check: Bet.checkBet()
+		int result = super.checkBet(dice);
+		// if the Line bet was won, then also pay out the Odds bet (if there is one)
+		if ((betStatus == Bet.BetStatus.BET_WON || betStatus == Bet.BetStatus.BET_LOST) && this.oddsBet != null)	{
+			result = result + this.oddsBet.checkBet(dice);
+		}
+		return result;
+	}
+	
 
 }
