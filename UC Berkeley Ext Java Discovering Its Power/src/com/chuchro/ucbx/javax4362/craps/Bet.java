@@ -13,7 +13,7 @@ abstract class Bet {
 	/** Amount of the bet	*/
 	public int			amount;
 	/** Expressed as x/y, how much the house pays ($x) for every $y bet, ex: 6/5 pays $6 on a $5 bet	*/
-	public double		payoutRatio;
+	public Double		payoutRatio;
 	/**	All the rolls that win this bet	*/
 	public List<Integer>	winners;
 	/**	All the rolls that lose this bet	*/
@@ -53,7 +53,7 @@ abstract class Bet {
 				continue;
 			}
 			if (betAmount > maxAmount) {
-				System.out.println("You bet cannot exceed your chip count, which is currently $" + maxAmount);
+				System.out.println("You bet cannot exceed the maximum allowable bet amount, which is currently $" + maxAmount);
 				betAmount = -1;
 				continue;				
 			}
@@ -62,7 +62,7 @@ abstract class Bet {
 				betAmount = -1;
 				continue;				
 			}
-			if (!checkBetMultiple(amount))	{
+			if (!checkBetMultiple(betAmount))	{
 				System.out.println(betName +" must be a multiple of " + amountMultiple);
 				betAmount = -1;
 				continue;				
@@ -75,7 +75,7 @@ abstract class Bet {
 		int payoutAmt =(int)Math.round(amount * payoutRatio);
 		System.out.println("Your " + betName + " of $" + amount + " is a  winner!");
 		System.out.println("The bet winnings of $" + payoutAmt + ", plus your original " +
-							" bet amount of $" + amount + " is added to your chip count");
+							"bet amount of $" + amount + " is added to your chip count.\n");
 		betStatus = BetStatus.BET_WON;
 		return payoutAmt + amount;
 	}

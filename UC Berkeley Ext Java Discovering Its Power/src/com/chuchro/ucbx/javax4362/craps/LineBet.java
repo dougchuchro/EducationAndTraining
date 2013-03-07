@@ -1,5 +1,8 @@
 package com.chuchro.ucbx.javax4362.craps;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 /**
  * This abstract class represents all types of bets that may require multiple rolls to be determined.
  * Bets of this type will be represented by their own class that extend this class and include: PassLineBet,
@@ -30,40 +33,44 @@ public abstract class LineBet extends Bet {
 
 	/**
 	 * After the establishing roll is made, this is called to (re)set the winning and losing rolls
-	 * based on the point. Note that the implementation here is valid for PassLineBet and ComeLineBet,
-	 * it needs to be overridden in the Don't classes for proper behavior.
+	 * based on the point. This is an abstract method because Pass/Come Line bets must have a different 
+	 * implementation than DontPass/DontCome bets.
 	 * @param point
 	 */
-	public void setPoint(int point)	{
-		// Clear out the initial winner (7) and add the point as the only winning roll
-		super.winners.clear();
-		super.winners.add(new Integer(point));
-		// Clear out the initial losing rolls (2,3,12) and add 7 as the only losing roll
-		super.losers.clear();
-		super.losers.add(new Integer(7));
-	}
-
+	public abstract void setPoint(int point);
+	
 	/**
-	 * Resets the winning and losing rolls for the "Don't" bets: DontPassBet and DontComeBet
-	 * These two classes will override setPoint() to call this method.
-	 * @param point	The point set be the initial (come out) roll.
+	 * Prompt the user if they want to place an Odds bet to attach to this Line Bet.
+	 * @param	Point: the point of the current game
+	 * @param	chipCount: The players chip count, which will be used with the maximum theoretical Odds bet
+	 * 			amount to determine the maximum amount of the current Odds bet.
+	 * @return	Returns the amount of the odds bet placed to be deducted from the chip count.
+	 * 			If no odds bet placed, zero (0) is returned.
 	 */
-	public void setDontPoint(int point)	{
-		// Clear out the initial winner (7) and add the point as the only winning roll
-		super.winners.clear();
-		super.winners.add(new Integer(7));
-		// Clear out the initial losing rolls (2,3,12) and add 7 as the only losing roll
-		super.losers.clear();
-		super.losers.add(new Integer(point));	
+	public int promptOddsBet(int point, int chipCount)	{
+		int betAmount = 0;
+		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in), 1);
+		System.out.println("Would you like to place odds on your " + betName + "? (y/n)");
+		String resp = "";
+		try {
+			resp = stdin.readLine();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (resp.matches("y")) {
+			betAmount = setOddsBet(point, chipCount);
+		}
+		return betAmount;
 	}
 	
 	/**
-	 * Sets the Odds Bet that is optionally attached to this Line Bet
-	 * @param oddsBet	Odds Bet object to attach to this Line Bet
+	 * Abstract method requires implementing classes to define thier own OddsBet, specificly
+	 * the PassLine bet will set a LineOdds bet, and DontPass bet will set DontOdds bet. Similarly with ComeLine/DontCome bets.
+	 * @param point		The point set in the current game.
+	 * @param chipCount	The player's current chip count.
+	 * @return	The amount of the Odds bet, to be deducted from the player's chip count.
 	 */
-	public void setOddsBet(OddsBet oddsBet)	{
-		this.oddsBet = oddsBet;
-	}
+	public abstract int setOddsBet(int point, int chipCount);
 	
 	/**
 	 * Check if the bet won or lost based on the roll of the Dice that was passed, then check the associated Odds bet

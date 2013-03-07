@@ -37,6 +37,7 @@ public class Session {
 			if (ppb != null)	{
 				bets.add(ppb);
 				chipCount = chipCount - ppb.amount;
+				printChipCount();
 			}
 			
 			// Start the game with the "Come Out" roll
@@ -51,12 +52,10 @@ public class Session {
 				// pointing to the very same object in memory.  So we can use the ppb handle to alter the item
 				// in the bets ArrayList without any manipulation to the ArrayList itself.
 				ppb.setPoint(game.point);
-				OddsBet ob = getOddsBet(ppb, game.point);
-				// Note that we don't add the OddsBet to the List of Bets (this.bets) as we did the Line bet and 
-				// will for other bets. Rather, we attach it to the Line bet and only take action if that Line bet
-				// is won or lost.
-				ppb.setOddsBet(ob);
-				chipCount = chipCount - ob.amount;
+				// Now that the point is set, ask the player if they want to place an Odds bet attached to their Line bet
+				// and subtract that bet amount from the chip count.
+				chipCount = chipCount - ppb.promptOddsBet(game.point, chipCount);
+				printChipCount();
 			}
 			
 			// Keep rolling until the GameStatus is WON or LOST
@@ -81,7 +80,7 @@ public class Session {
 	}
 	
 	private LineBet getPrePointBet()	{
-		LineBet bet = null;
+		LineBet lineBet = null;
 		System.out.println("New game, place you bet.  \n" +
 				"Enter \"p\" for Pass Line bet or \"d\" for Don't Pass bet, " +
 				"or just hit return for no initial bet");
@@ -93,35 +92,20 @@ public class Session {
 		}
 		switch (resp)	{
 		case ("p"):
-			bet = new PassLineBet(chipCount);
+			lineBet = new PassLineBet(chipCount);
 			break;
 		case ("d"):
-			bet = new DontPassBet(chipCount);
+			lineBet = new DontPassBet(chipCount);
 			break;
 		}
-		return bet;
+		return lineBet;
 	}
 	
-	private OddsBet getOddsBet(LineBet b, int point)	{
-		OddsBet ob = null;
-		System.out.println("Would you like to place odds on your " + b.betName + "? (y/n)");
-		String resp = "";
-		try {
-			resp = stdin.readLine();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (resp.matches("y")) {
-			ob = new OddsBet(b, point);
-		}
-		return ob;
-	}
-
 	private int checkBets(Dice dice)	{
 		int result = 0;
 		for (Bet b : bets)	{
 			if (b.betStatus == Bet.BetStatus.BET_ON) {
-				result = b.checkBet(dice);
+				result = result + b.checkBet(dice);
 			}
 		}
 		return result;

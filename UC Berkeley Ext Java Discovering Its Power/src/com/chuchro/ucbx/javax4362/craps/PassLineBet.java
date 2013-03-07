@@ -19,5 +19,19 @@ public class PassLineBet extends LineBet {
 		super.losers.add(new Integer(3));
 		super.losers.add(new Integer(12));
 	}
-	
+
+	public void setPoint(int point)	{
+		// Clear out the initial winner (7) and add the point as the only winning roll
+		super.winners.clear();
+		super.winners.add(new Integer(point));
+		// Clear out the initial losing rolls (2,3,12) and add 7 as the only losing roll
+		super.losers.clear();
+		super.losers.add(new Integer(7));
+	}
+
+	public int setOddsBet(int point, int chipCount)	{
+		this.oddsBet = new LineOddsBet(this, point, chipCount);
+		return this.oddsBet.amount;
+	}
+
 }

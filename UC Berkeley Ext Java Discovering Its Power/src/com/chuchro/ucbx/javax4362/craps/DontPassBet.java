@@ -5,11 +5,6 @@ public class DontPassBet extends LineBet {
 	public static int 	 minAmount = 5;				// minimum $5 bet
 	public static double payoutRatio = 1/1;			// payout for passline bet is 1:1
 	public static int 	 amountMultiple = 1;		// pass line bet can be any amount greater than minimum
-	public Bet 			 dontPassOddsBet;			// This bet can only be made after the point is set and
-													// has a payout ratio exactly that of the probability of
-													// hitting the point.  For example, if the point is 6
-													// the probability of hitting the point before crapping
-													// out if 5:6, so a $5 bet wins $6
 	public int pushRoll;
 	public static int DONT_PASS_PUSH_ROLL = 12;		// If a 12 is rolled coming out on Don't Pass bet, the bet
 													// is considered "pushed", neither won nor lost, and the 
@@ -25,12 +20,21 @@ public class DontPassBet extends LineBet {
 		super.losers.add(new Integer(7));
 		super.losers.add(new Integer(11));
 		// Set the come-out push roll of a Don't Pass bet: 12
-		this.pushRoll = DONT_PASS_PUSH_ROLL;
-		
+		this.pushRoll = DONT_PASS_PUSH_ROLL;	
 	}
-	
+
+	/**
+	 * Resets the winning and losing rolls for the "Don't" bets: DontPassBet and DontComeBet
+	 * These two classes will override setPoint() to call this method.
+	 * @param point	The point set be the initial (come out) roll.
+	 */
 	public void setPoint(int point)	{
-		super.setDontPoint(point);
+		// Clear out the initial winner (7) and add the point as the only winning roll
+		super.winners.clear();
+		super.winners.add(new Integer(7));
+		// Clear out the initial losing rolls (2,3,12) and add 7 as the only losing roll
+		super.losers.clear();
+		super.losers.add(new Integer(point));	
 		// After the come-out roll (when the point is set), 12 is no longer a roll that "pushes"
 		this.pushRoll = 0;
 	}
@@ -50,6 +54,11 @@ public class DontPassBet extends LineBet {
 			result = amount;
 		}
 		return result;
+	}
+
+	public int setOddsBet(int point, int chipCount)	{
+		this.oddsBet = new DontOddsBet(this, point, chipCount);
+		return this.oddsBet.amount;
 	}
 
 }
