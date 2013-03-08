@@ -10,14 +10,20 @@ public class PassLineBet extends LineBet {
 	
 	PassLineBet(int maxAmt)	{
 		super(betName, minAmount, maxAmt, amountMultiple);
+		initialize();
+	}
+
+	PassLineBet(int maxAmt, String betName)	{
+		super(betName, minAmount, maxAmt, amountMultiple);
+		initialize();
+	}
+	
+	private void initialize()	{
 		super.payoutRatio		= PassLineBet.payoutRatio;
 		// Set the winning roll of a Pass Line bet: 7 and 11
-		super.winners.add(new Integer(7));
-		super.winners.add(new Integer(11));
+		super.winners.addAll(COME_OUT_LINE_BET_WINNERS);
 		// Set the losing rolls of a Pass Line bet: 2, 3, and 12
-		super.losers.add(new Integer(2));
-		super.losers.add(new Integer(3));
-		super.losers.add(new Integer(12));
+		super.losers.addAll(COME_OUT_LINE_BET_LOSERS);
 	}
 
 	public void setPoint(int point)	{

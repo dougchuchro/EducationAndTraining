@@ -2,6 +2,7 @@ package com.chuchro.ucbx.javax4362.craps;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.*;
 
 /**
  * This abstract class represents all types of bets that may require multiple rolls to be determined.
@@ -19,6 +20,10 @@ import java.io.InputStreamReader;
 public abstract class LineBet extends Bet {
 	/** The Odds Bet that is optionally attached to a Line Bet of any type	*/
 	public OddsBet 			 oddsBet;
+	public static List<Integer> COME_OUT_LINE_BET_WINNERS	= new ArrayList<Integer>(Arrays.asList(7,11));
+	public static List<Integer> COME_OUT_LINE_BET_LOSERS	= new ArrayList<Integer>(Arrays.asList(12,3,2));
+	public static List<Integer> POINTS  					= new ArrayList<Integer>(Arrays.asList(4,5,6,8,9,10));
+	
 
 	/**
 	 * Default constructor, calls super

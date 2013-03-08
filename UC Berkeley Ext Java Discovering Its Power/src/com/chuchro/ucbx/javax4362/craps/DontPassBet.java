@@ -13,12 +13,10 @@ public class DontPassBet extends LineBet {
 	DontPassBet(int maxAmt)	{
 		super(betName, minAmount, maxAmt, amountMultiple);
 		super.payoutRatio		= PassLineBet.payoutRatio;
-		// Set the winning rolls of a Don't Pass bet: 2 and 3
-		super.winners.add(new Integer(2));
-		super.winners.add(new Integer(3));
+		// Set the winning rolls of a Don't Pass bet: 2 and 3, but not 12 (hence the offset index of 1)
+		super.winners.addAll(1, COME_OUT_LINE_BET_LOSERS);
 		// Set the losing roll of a Don't Pass bet: 7 and 11
-		super.losers.add(new Integer(7));
-		super.losers.add(new Integer(11));
+		super.losers.addAll(COME_OUT_LINE_BET_WINNERS);
 		// Set the come-out push roll of a Don't Pass bet: 12
 		this.pushRoll = DONT_PASS_PUSH_ROLL;	
 	}
