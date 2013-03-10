@@ -46,15 +46,15 @@ public class LineOddsBet extends OddsBet {
 	}
 
 	/**
-	 * @param b
-	 * @param point
-	 * @param chipCount 
+	 * @param lineBet	Bet to which this Odds bet is attached.
+	 * @param point		Point set on the come out roll.
+	 * @param chipCount Player's chip count.
 	 */
-	public LineOddsBet(LineBet b, int point, int chipCount) {
+	public LineOddsBet(LineBet lineBet, int point, int chipCount) {
 		super(betName, 																			// betName
 				point, 																			// point
 				POINT_AMOUNT_MULTIPLE_MAP.get(point), 											// minAmount
-				((chipCount<b.amount*MAX_ODDS_MULTIPLE)?chipCount:b.amount*MAX_ODDS_MULTIPLE),	// maxAmount
+				((chipCount<lineBet.amount*MAX_ODDS_MULTIPLE)?chipCount:lineBet.amount*MAX_ODDS_MULTIPLE),	// maxAmount
 				POINT_AMOUNT_MULTIPLE_MAP.get(point),											// amountMultiple
 				POINT_PAYOUT_RATIO_MAP.get(point));												// payoutRatio
 	}

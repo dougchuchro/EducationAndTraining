@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Die {
 	public int side;			// the side of the die that faces up when rolled
-	public DiceNumber cSide;	// English word for the number of "side" (above)
+	public DieNumber cSide;	// English word for the number of "side" (above)
 	private Random random;
 	private int numSidesOfDie = 6;
 
@@ -15,10 +15,10 @@ public class Die {
 	}
 	public int roll()	{
 		side = random.nextInt(numSidesOfDie) + 1;
-		cSide = DiceNumber.values()[side-1];
+		cSide = DieNumber.values()[side-1];
 		return side;
 	}
-	public enum DiceNumber {
+	public enum DieNumber {
 		ONE, TWO, THREE, FOUR, FIVE, SIX,
 	}
 }

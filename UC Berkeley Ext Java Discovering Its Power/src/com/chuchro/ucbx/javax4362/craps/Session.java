@@ -63,6 +63,7 @@ public class Session {
 			while (game.gameStatus == Game.GameStatus.POINT_SET)	{
 				game.printPoint();
 				promptSubsequentBets();
+				printBetSummary();
 				game.pointRoll();
 				game.dice.printDice();
 				chipCount = chipCount + checkBets(game.dice);
@@ -73,7 +74,6 @@ public class Session {
 					printChipCount();
 				}
 				initComeBet = null;
-				printBetSummary();
 			}
 			
 			printChipCount();
@@ -132,6 +132,11 @@ public class Session {
 			case ("p"):
 				break;
 			case ("r"):
+				PropositionBet.PropositionBetType pbt = PropositionBet.promptPropositionBetType();
+				if (pbt != null)	{
+					PropositionBet pb = new PropositionBet(pbt);
+					bet = pb;				
+				}
 				break;
 			case ("h"):
 				break;
@@ -162,10 +167,10 @@ public class Session {
 	}
 	
 	public void printBetSummary()	{
-		System.out.println("Bet Name	Amount		Winners");		
+		System.out.println("BET SUMMERY \n\tBET NAME\tAMOUNT\tWINNING ROLLS\tLOSING ROLLS");		
 		for (Bet b : bets) {
 			if (b.betStatus == Bet.BetStatus.BET_ON)	{
-			System.out.println(b.betName + "\t" + b.amount + "\t\t" + b.winners);					
+			System.out.println("\t" + b.betName + "\t$" + b.amount + "\t" + b.winners + "\t\t"+ b.losers + "\t"+ b.getOddsBetString());					
 			}
 		}
 	}

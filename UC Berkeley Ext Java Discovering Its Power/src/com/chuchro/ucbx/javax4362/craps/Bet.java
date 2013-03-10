@@ -5,6 +5,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This abstract class is the super class of all Bet objects; each will extend Bet, or another bet object that extends Bet (ad infinitum)
+ * @author Doug Chuchro (doug@chuchro.net)
+ */
 abstract class Bet {
 	/**	Name of the bet, ex: "Pass Line bet", "Come line bet", "Field bet"	*/
 	public String		betName;
@@ -85,6 +89,16 @@ abstract class Bet {
 		betStatus = BetStatus.BET_LOST;
 		return amount;
 	}
+	
+	/**
+	 * Empty method to print the Odds bet attached to this bet. Called by Session.printBetSumamry() which iterates
+	 * over all bet so it must be present in this super object. Subclass LineBet will override this method to 
+	 * actually print out info about the Odds bet.
+	 * @see LineBet
+	 */
+	public String getOddsBetString()	{
+		return "";
+	}
 
 	private boolean checkBetMultiple(int amount)	{
 		if (amount % this.amountMultiple == 0)	{
@@ -116,14 +130,18 @@ abstract class Bet {
 		return result;
 	}
 	
+	/**
+	 * Enumerates the different states a bet can be in at any given time.
+	 * @author Doug Chuchro (doug@chuchro.net)
+	 */
 	public enum BetStatus	{
-		BET_ON,			// the bet is currently on and will be evaluated after the next roll
-		BET_OFF,		// the bet is still on the table but will be inactive for the next roll, can neither be won nor lost
-		BET_WON,		// the previous roll has been evaluated as a winner for this bet, player will be credited
-		BET_LOST,		// the previous roll has been evaluated as a loser for this bet, house will take the player's bet $
-		BET_PUSHED,		// the previous roll has been evaluated as a "push" for this bet, player gets bet amount back but no winnings
-		BET_SETTLED,	// the bet has been either won or lost and the player has been credited or debited, bet is no longer relevant
-		BET_PULLED,		// the player has chosen to take the bet off the table (only valid for certain bet types)
+		/** the bet is currently on and will be evaluated after the next roll	*/											BET_ON,			
+		/** the bet is still on the table but will be inactive for the next roll, can neither be won nor lost	*/			BET_OFF,
+		/** the previous roll has been evaluated as a winner for this bet, player will be credited	*/						BET_WON,
+		/** the previous roll has been evaluated as a loser for this bet, house will take the player's bet $	*/			BET_LOST,
+		/** the previous roll has been evaluated as a "push" for this bet, player gets bet amount back but no winnings	*/	BET_PUSHED,
+		/** the bet has been either won or lost and the player has been credited or debited, bet is no longer relevant	*/	BET_SETTLED,	
+		/** the player has chosen to take the bet off the table (only valid for certain bet types)	*/						BET_PULLED,		
 	}
 
 }

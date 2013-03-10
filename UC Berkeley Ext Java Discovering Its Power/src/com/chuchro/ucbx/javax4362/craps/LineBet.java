@@ -21,7 +21,7 @@ public abstract class LineBet extends Bet {
 	/** The Odds Bet that is optionally attached to a Line Bet of any type	*/
 	public OddsBet 			 oddsBet;
 	public static List<Integer> COME_OUT_LINE_BET_WINNERS	= new ArrayList<Integer>(Arrays.asList(7,11));
-	public static List<Integer> COME_OUT_LINE_BET_LOSERS	= new ArrayList<Integer>(Arrays.asList(12,3,2));
+	public static List<Integer> COME_OUT_LINE_BET_LOSERS	= new ArrayList<Integer>(Arrays.asList(2,3,12));
 	public static List<Integer> POINTS  					= new ArrayList<Integer>(Arrays.asList(4,5,6,8,9,10));
 	
 
@@ -46,9 +46,9 @@ public abstract class LineBet extends Bet {
 	
 	/**
 	 * Prompt the user if they want to place an Odds bet to attach to this Line Bet.
-	 * @param	Point: the point of the current game
-	 * @param	chipCount: The players chip count, which will be used with the maximum theoretical Odds bet
-	 * 			amount to determine the maximum amount of the current Odds bet.
+	 * @param	point		The point of the current game
+	 * @param	chipCount	The players chip count, which will be used with the maximum theoretical
+	 * 			Odds bet amount to determine the maximum amount of the current Odds bet.
 	 * @return	Returns the amount of the odds bet placed to be deducted from the chip count.
 	 * 			If no odds bet placed, zero (0) is returned.
 	 */
@@ -91,5 +91,16 @@ public abstract class LineBet extends Bet {
 		}
 		return result;
 	}
-		
+	
+	/**
+	 * 
+	 */
+	public String getOddsBetString()	{
+		String msg = "";
+		if (oddsBet != null)	{
+			msg = "\tplus Odds Bet of $" + oddsBet.amount + ", winners:" + oddsBet.winners + ", losers:" + oddsBet.losers;
+		}
+		return msg;
+	}
+
 }

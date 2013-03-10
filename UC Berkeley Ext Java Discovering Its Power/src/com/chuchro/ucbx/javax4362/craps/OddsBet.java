@@ -25,11 +25,15 @@ public abstract class OddsBet extends Bet {
 	/**
 	 * Constructor for an Odds bet, which calls the super (Bet) constructor, then sets the Payout Ratio, winning 
 	 * and losing rolls.
-	 * @param b		Line bet to which this Odds bet is attached.
-	 * @param point Point set at the come out roll of the Line bet.
+	 * @param betName		Name of the bet type.
+	 * @param point			Point set at the come out roll of the Line bet.
+	 * @param minAmount		Theoretical minimum amount of the bet to be placed.
+	 * @param maxAmount 	Theoretical maximum amount of the bet to be placed.
+	 * @param amtMultiple	Bet must be a multiple of this amount to have an integer payout.
+	 * @param payoutRatio	Ratio of payout-to-bet amount. For example 3/2 pays $3 on a $2 bet.
 	 */
-	OddsBet(String betName, int point, int minAmount, int maxAmount, int amountMultiple, Double payoutRatio)	{
-		super(betName, minAmount, maxAmount, amountMultiple);
+	OddsBet(String betName, int point, int minAmount, int maxAmount, int amtMultiple, Double payoutRatio)	{
+		super(betName, minAmount, maxAmount, amtMultiple);
 		super.payoutRatio = payoutRatio;
 		super.winners.add(new Integer(point));
 		super.losers.add(new Integer(7));

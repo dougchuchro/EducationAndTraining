@@ -12,9 +12,19 @@ public class DontPassBet extends LineBet {
 	
 	DontPassBet(int maxAmt)	{
 		super(betName, minAmount, maxAmt, amountMultiple);
+		initialize();
+	}
+
+	DontPassBet(int maxAmt, String betName)	{
+		super(betName, minAmount, maxAmt, amountMultiple);
+		initialize();
+	}
+
+
+	private void initialize()	{
 		super.payoutRatio		= PassLineBet.payoutRatio;
-		// Set the winning rolls of a Don't Pass bet: 2 and 3, but not 12 (hence the offset index of 1)
-		super.winners.addAll(1, COME_OUT_LINE_BET_LOSERS);
+		// Set the winning rolls of a Don't Pass bet: 2 and 3, but not 12 (hence the subList-1)
+		super.winners.addAll(COME_OUT_LINE_BET_LOSERS.subList(0, COME_OUT_LINE_BET_LOSERS.size()-1));
 		// Set the losing roll of a Don't Pass bet: 7 and 11
 		super.losers.addAll(COME_OUT_LINE_BET_WINNERS);
 		// Set the come-out push roll of a Don't Pass bet: 12
@@ -22,8 +32,7 @@ public class DontPassBet extends LineBet {
 	}
 
 	/**
-	 * Resets the winning and losing rolls for the "Don't" bets: DontPassBet and DontComeBet
-	 * These two classes will override setPoint() to call this method.
+	 * Resets the winning and losing rolls for the "Don't" bets: DontPassBet and DontComeBet. 
 	 * @param point	The point set be the initial (come out) roll.
 	 */
 	public void setPoint(int point)	{

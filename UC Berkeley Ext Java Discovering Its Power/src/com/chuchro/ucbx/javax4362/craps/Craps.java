@@ -1,5 +1,10 @@
 package com.chuchro.ucbx.javax4362.craps;
 
+/**
+ * 
+ * @author Doug Chuchro
+ *
+ */
 public class Craps {
 	public Session session;
 	

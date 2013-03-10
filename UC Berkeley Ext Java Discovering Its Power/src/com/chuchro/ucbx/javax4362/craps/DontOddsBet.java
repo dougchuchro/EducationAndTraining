@@ -23,7 +23,7 @@ public class DontOddsBet extends OddsBet {
 	/**	Name of the bet type	*/
 	public static String betName = "Don't Odds bet";
 
-		/**	Static lookup table of Dont bet points and their corresponding Odds bet amount multiple.
+	/**	Static lookup table of Don't bet points and their corresponding Don't Odds bet amount multiple.
 	 * 	This table (in the form of a Map) is populated by the static method createPointAmountMultipleMap().
 	 * 	@see	#createPointAmountMultipleMap()*/
 	private static final Map<Integer, Integer> POINT_AMOUNT_MULTIPLE_MAP = createPointAmountMultipleMap(); 
@@ -38,7 +38,7 @@ public class DontOddsBet extends OddsBet {
 		return Collections.unmodifiableMap(tmpMap);
 	}
 	
-	/**	Provides a static lookup table of Line bet points and their corresponding Odds bet Payout Ratio.
+	/**	Provides a static lookup table of Don't bet points and their corresponding Odds bet Payout Ratio.
 	 * 	This table (in the form of a Map) is populated by the static method createPointPayoutRatioMap().
 	 * 	@see	#createPointPayoutRatioMap()*/
 	private static final Map<Integer, Double> POINT_PAYOUT_RATIO_MAP = createPointPayoutRatioMap(); 
@@ -54,16 +54,23 @@ public class DontOddsBet extends OddsBet {
 	}
 
 	/**
-	 * @param b
-	 * @param point
+	 * Constructor Don't Odds bet.
+	 * @param lineBet	Bet to which this Don't Odds bet is attached.
+	 * @param point		Point set on the come out roll.
 	 */
-	public DontOddsBet(LineBet b, int point, int chipCount) {
-		super(betName, 																			// betName
-				point, 																			// point
-				POINT_AMOUNT_MULTIPLE_MAP.get(point), 											// minAmount
-				((chipCount<b.amount*MAX_ODDS_MULTIPLE)?chipCount:b.amount*MAX_ODDS_MULTIPLE),	// maxAmount
-				POINT_AMOUNT_MULTIPLE_MAP.get(point),											// amountMultiple
-				POINT_PAYOUT_RATIO_MAP.get(point));												// payoutRatio
+	public DontOddsBet(LineBet lineBet, int point, int chipCount) {
+		super(betName, 																						// betName
+				point, 																						// point
+				POINT_AMOUNT_MULTIPLE_MAP.get(point), 														// minAmount
+				((chipCount<lineBet.amount*MAX_ODDS_MULTIPLE)?chipCount:lineBet.amount*MAX_ODDS_MULTIPLE),	// maxAmount
+				POINT_AMOUNT_MULTIPLE_MAP.get(point),														// amountMultiple
+				POINT_PAYOUT_RATIO_MAP.get(point));															// payoutRatio
+		// Clear out the default winning rolls (set by Bet constructor) and add the 7 as the only winning roll
+		winners.clear();
+		winners.add(new Integer(7));
+		// Clear out the default losing roll (set by Bet constructor) and add the point as the only losing roll
+		losers.clear();
+		losers.add(new Integer(point));
 	}
 
 }
