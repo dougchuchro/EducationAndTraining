@@ -25,9 +25,9 @@ public class PropositionBet extends Bet {
 	/**	List of losing rolls.	*/
 	public static List<Integer> PROP_BET_LOSERS = Arrays.asList(2,3,4,5,6,7,8,9,10,11,12);
 
-	/**	Static lookup table of Don't bet points and their corresponding Don't Odds bet amount multiple.
-	 * 	This table (in the form of a Map) is populated by the static method createPointAmountMultipleMap().
-	 * 	@see	#createPointAmountMultipleMap()*/
+	/**	Static lookup table of Proposition bets and their corresponding attribute values.
+	 * 	This table (in the form of a Map) is populated by the static method createPropBetTypeMap().
+	 * 	@see	#createPropBetTypeMap()*/
 	private static final Map<PropositionBetType, PropositionBetInfo> PROP_BET_TYPE_MAP = createPropBetTypeMap(); 
 	private static Map<PropositionBetType, PropositionBetInfo> createPropBetTypeMap()	{
 		Map<PropositionBetType, PropositionBetInfo> tmpMap = new HashMap<PropositionBetType, PropositionBetInfo>();

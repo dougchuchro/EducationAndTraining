@@ -130,6 +130,11 @@ public class Session {
 				}
 				break;
 			case ("p"):
+				PlaceBet.PlaceBetType plbt = PlaceBet.promptPlaceBetType();
+				if (plbt != null)	{
+					PlaceBet placeBet = new PlaceBet(plbt);
+					bet = placeBet;
+				}
 				break;
 			case ("r"):
 				PropositionBet.PropositionBetType pbt = PropositionBet.promptPropositionBetType();
