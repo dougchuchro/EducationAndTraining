@@ -54,7 +54,7 @@ public class DontPassBet extends LineBet {
 		int result = super.checkBet(dice);
 		// Then check to see if the roll was a 12 on the come out roll. Note that this.pushRoll will only be 12
 		// on the come out roll; we reset it to 0 after the come out roll in DontPassBet.setPoint() above.
-		if (dice.rollSum == this.pushRoll)	{
+		if (dice.getRollSum() == this.pushRoll)	{
 			System.out.println("Your " + betName + " of $" + amount + " pushed, " +
 								"the oringal bet amount will be added to your chip count");
 			betStatus = BetStatus.BET_PUSHED;

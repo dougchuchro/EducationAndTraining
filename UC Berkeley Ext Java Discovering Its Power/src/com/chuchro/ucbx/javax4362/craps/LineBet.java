@@ -98,6 +98,7 @@ public abstract class LineBet extends Bet {
 	public String getOddsBetString()	{
 		String msg = "";
 		if (oddsBet != null)	{
+//			msg = "\tplus Odds Bet of $" + oddsBet.amount;
 			msg = "\tplus Odds Bet of $" + oddsBet.amount + ", winners:" + oddsBet.winners + ", losers:" + oddsBet.losers;
 		}
 		return msg;

@@ -38,8 +38,8 @@ public class PlaceBet extends Bet {
 	}
 	
 	/**
-	 * 
-	 * @param PlaceBetType
+	 * Constructor creates a Place bet based on player's input: Place type (number) and bet amount.
+	 * @param pbt	PlaceBetType is the type of place bet the player has selected.
 	 */
 	public PlaceBet(PlaceBetType pbt) {
 		super(BET_NAME, PLACE_BET_TYPE_MAP.get(pbt).minAmount, MAX_AMOUNT, PLACE_BET_TYPE_MAP.get(pbt).amountMultiple);

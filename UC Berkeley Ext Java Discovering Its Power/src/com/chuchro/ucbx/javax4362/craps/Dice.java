@@ -1,32 +1,43 @@
 package com.chuchro.ucbx.javax4362.craps;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
+/**
+ * This class represents the pair of dice that are used in a craps game.
+ * All member fields are kept private to prevent tampering of the dice.
+ * @author Doug Chuchro (doug@chuchro.net)
+ */
 public class Dice {
-	public Die d1;
-	public Die d2;
-	public int rollSum;
+	/** First of the two dice in the pair.	*/
+	private Die dice1;
+	/** Second of the two dice in the pair.	*/
+	private Die dice2;
+	/** Sum of the current dice roll.	*/
+	private int rollSum;
 
+	/**	
+	 * Simple constructor which initializes the member fields.
+	 */
 	public Dice()	{
-		d1 = new Die();
-		d2 = new Die();
+		dice1 = new Die();
+		dice2 = new Die();
 		rollSum = 0;
 	}
 
+	/**
+	 * Getter method for the roll sum.
+	 * @return this.rollSum
+	 */
+	public int getRollSum() {return rollSum;}
+
+	/**
+	 * Roll the dice.
+	 * @return Sum outcome of the roll.
+	 */
 	public int rollDice()	{
 		System.out.println("Ready to roll ... press enter to roll the dice");
-		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in), 1);	
-		try {
-			stdin.readLine();
-		} catch (IOException e) { }
-		rollSum = d1.roll() + d2.roll();
+		Session.getUserInput();
+		rollSum = dice1.roll() + dice2.roll();
+		System.out.println("DICE ROLLED: " + dice1.getSideString() + " / " + dice2.getSideString() + " (" + rollSum + ")");
 		return rollSum;
 	}
-
-	public void printDice()	{
-		System.out.println(d1.cSide + " / " + d2.cSide + " (" + rollSum + ")");
-	}
-
+	
 }
