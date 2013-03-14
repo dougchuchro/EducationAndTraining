@@ -1,3 +1,12 @@
+# Eclipse files
+###################
+.classpath
+.project
+.settings/
+# Generated JavaDoc #
+###################
+/doc
+
 # Compiled source #
 ###################
 *.com
@@ -36,3 +45,4 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+
