@@ -3,9 +3,6 @@
 .classpath
 .project
 .settings/
-# Generated JavaDoc #
-###################
-/doc
 
 # Compiled source #
 ###################
