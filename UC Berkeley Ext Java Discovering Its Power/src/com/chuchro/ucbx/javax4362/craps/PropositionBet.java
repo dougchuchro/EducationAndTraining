@@ -1,12 +1,5 @@
 package com.chuchro.ucbx.javax4362.craps;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
 /**
  * @author Doug Chuchro (doug@chuchro.net)
  *
@@ -14,9 +7,9 @@ import java.util.Map;
 public class PropositionBet extends Bet {
 	/**	Name of the bet type	*/
 	public static String BET_NAME = "Proposition Bet";
-	/**	Minimum bet size for a Propostion bet is $1	*/
+	/**	Minimum bet size for a Proposition bet is $1	*/
 	public static int MIN_AMOUNT = 1;
-	/**	Maximum bet size for a Propostion bet is unlimited, but we will limit to the maximum size of an Integer in Java	*/
+	/**	Maximum bet size for a Proposition bet is unlimited, but we will limit to the maximum size of an Integer in Java	*/
 	public static int MAX_AMOUNT = Integer.MAX_VALUE;
 	/**	Bet amount can be any integer	*/
 	public static int AMT_MULTIPLE = 1;
