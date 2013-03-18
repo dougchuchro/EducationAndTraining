@@ -1,40 +1,42 @@
 package com.chuchro.ucbx.javax4362.craps;
-
+/**
+ * Don't Pass bet for the come out roll of a craps game.
+ * @author Doug Chuchro (doug@chuchro.net)
+ * @see com.chuchro.ucbx.javax4362.craps.LineBet														 */
 public class DontPassBet extends LineBet {
-	public static String betName = "Don't Pass bet";
-	public static int 	 minAmount = 5;				// minimum $5 bet
-	public static double payoutRatio = 1/1;			// payout for passline bet is 1:1
-	public static int 	 amountMultiple = 1;		// pass line bet can be any amount greater than minimum
+	/** The common name of the bet.	*/
+	public static String BET_NAME = "Don't Pass bet";
+	/** Used to track if the "push on 12" rule is in effect (only on come out roll)
+	 * @see #setPoint(int)	 */
 	public int pushRoll;
-	public static int DONT_PASS_PUSH_ROLL = 12;		// If a 12 is rolled coming out on Don't Pass bet, the bet
-													// is considered "pushed", neither won nor lost, and the 
-													// player gets only his original bet amount back
+	/** Roll in which bet is "pushed"
+	 * @see #setPoint(int)	 */
+	public static int DONT_PASS_PUSH_ROLL = 12;
 	
+	/**
+	 * Default constructor
+	 * @param maxAmt	The maximum amount the bet can be, usually limited by the player's chip count.	 */
 	DontPassBet(int maxAmt)	{
-		super(betName, minAmount, maxAmt, amountMultiple);
-		initialize();
-	}
-
-	DontPassBet(int maxAmt, String betName)	{
-		super(betName, minAmount, maxAmt, amountMultiple);
-		initialize();
-	}
-
-
-	private void initialize()	{
-		super.payoutRatio		= PassLineBet.payoutRatio;
-		// Set the winning rolls of a Don't Pass bet: 2 and 3, but not 12 (hence the subList-1)
+		super(BET_NAME, maxAmt);
 		super.winners.addAll(COME_OUT_LINE_BET_LOSERS.subList(0, COME_OUT_LINE_BET_LOSERS.size()-1));
-		// Set the losing roll of a Don't Pass bet: 7 and 11
 		super.losers.addAll(COME_OUT_LINE_BET_WINNERS);
-		// Set the come-out push roll of a Don't Pass bet: 12
+		this.pushRoll = DONT_PASS_PUSH_ROLL;	
+	}
+
+	/**
+	 * Another constructor, called by extending classes that want to set their own bet name.
+	 * @param maxAmt	The maximum amount the bet can be, usually limited by the player's chip count.
+	 * @param betName	Common name of the bet.															 */
+	DontPassBet(String betName, int maxAmt)	{
+		super(betName, maxAmt);
+		super.winners.addAll(COME_OUT_LINE_BET_LOSERS.subList(0, COME_OUT_LINE_BET_LOSERS.size()-1));
+		super.losers.addAll(COME_OUT_LINE_BET_WINNERS);
 		this.pushRoll = DONT_PASS_PUSH_ROLL;	
 	}
 
 	/**
 	 * Resets the winning and losing rolls for the "Don't" bets: DontPassBet and DontComeBet. 
-	 * @param point	The point set be the initial (come out) roll.
-	 */
+	 * @param point	The point set be the initial (come out) roll.										 */
 	public void setPoint(int point)	{
 		// Clear out the initial winner (7) and add the point as the only winning roll
 		super.winners.clear();
@@ -47,13 +49,13 @@ public class DontPassBet extends LineBet {
 	}
 	
 	/**
-	 * Overrides Bet.checkBet() because the Don't Pass Bet has a corner case where if a 12 is rolled, the bet is pushed.
-	 */
+	 * Overrides Bet.checkBet() because of a corner-case in the come out roll.
+	 * If a 12 is rolled coming out on Don't Pass bet, the bet is considered "pushed", 
+	 * neither won nor lost, and the player gets only his/her original bet amount back					
+	 * @param dice	The roll of the dice to check the bet against										
+	 * @return	If the bet was won, the amount of the bet's winnings.*/
 	public int checkBet(Dice dice)	{
-		// First run the standard checks for winners/losers.
 		int result = super.checkBet(dice);
-		// Then check to see if the roll was a 12 on the come out roll. Note that this.pushRoll will only be 12
-		// on the come out roll; we reset it to 0 after the come out roll in DontPassBet.setPoint() above.
 		if (dice.getRollSum() == this.pushRoll)	{
 			System.out.println("Your " + betName + " of $" + amount + " pushed, " +
 								"the oringal bet amount will be added to your chip count");
@@ -63,9 +65,13 @@ public class DontPassBet extends LineBet {
 		return result;
 	}
 
+	/**
+	 * After the point is set, optionally attach an Odds bet.
+	 * @param point	The point set for this bet.
+	 * @param chipCount	The player's current chip count, used to determine the maximum value of the bet.
+	 * @return	The amount of the Odds bet place, to be deducted from the chip count.					*/
 	public int setOddsBet(int point, int chipCount)	{
 		this.oddsBet = new DontOddsBet(this, point, chipCount);
 		return this.oddsBet.amount;
 	}
-
 }

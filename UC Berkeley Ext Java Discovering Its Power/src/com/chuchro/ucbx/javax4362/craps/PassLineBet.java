@@ -1,43 +1,47 @@
 package com.chuchro.ucbx.javax4362.craps;
-
+/**
+ * Pass Line bet for the come out roll of a craps game.
+ * @author Doug Chuchro (doug@chuchro.net)
+ * @see com.chuchro.ucbx.javax4362.craps.LineBet														*/
 public class PassLineBet extends LineBet {
-	public static String betName = "Pass Line bet";
-	public static int 	 minAmount = 5;				// minimum $5 bet
-	public static double payoutRatio = 1/1;			// payout for passline bet is 1:1
-	public static int[]  losers = { 7 };			// only loser for passline bet is to crap out
-	public static int 	 amountMultiple = 1;		// pass line bet can be any amount greater than minimum
-
+	/** The common name of the bet.	*/
+	public static String BET_NAME = "Pass Line bet";
 	
+	/**
+	 * Default constructor, calls super constructor, then sets winners and losers specific to this bet.
+	 * @param maxAmt	The maximum amount the bet can be, usually limited by the player's chip count.	 */
 	PassLineBet(int maxAmt)	{
-		super(betName, minAmount, maxAmt, amountMultiple);
-		initialize();
-	}
-
-	PassLineBet(int maxAmt, String betName)	{
-		super(betName, minAmount, maxAmt, amountMultiple);
-		initialize();
-	}
-	
-	private void initialize()	{
-		super.payoutRatio		= PassLineBet.payoutRatio;
-		// Set the winning roll of a Pass Line bet: 7 and 11
+		super(BET_NAME, maxAmt);
 		super.winners.addAll(COME_OUT_LINE_BET_WINNERS);
-		// Set the losing rolls of a Pass Line bet: 2, 3, and 12
 		super.losers.addAll(COME_OUT_LINE_BET_LOSERS);
 	}
 
+	/**
+	 * Another constructor, called by extending classes that want to set their own bet name.
+	 * @param maxAmt	The maximum amount the bet can be, usually limited by the player's chip count.
+	 * @param betName	Common name of the bet.															 */
+	PassLineBet(int maxAmt, String betName)	{
+		super(BET_NAME, maxAmt);
+		super.winners.addAll(COME_OUT_LINE_BET_WINNERS);
+		super.losers.addAll(COME_OUT_LINE_BET_LOSERS);
+	}
+
+	/**
+	 * The come out roll of the game has been established, so this sets the winning and losing rolls
+	 * for this bet accordingly.
+	 * @param	point	The point, which is the winning roll for this bet.								*/
 	public void setPoint(int point)	{
-		// Clear out the initial winner (7) and add the point as the only winning roll
 		super.winners.clear();
 		super.winners.add(new Integer(point));
-		// Clear out the initial losing rolls (2,3,12) and add 7 as the only losing roll
 		super.losers.clear();
 		super.losers.add(new Integer(7));
 	}
 
+	/**
+	 * After the point is set, optionally attach an Odds bet.
+	 * @return	The amount of the Odds bet, zero if no odds bet placed									*/
 	public int setOddsBet(int point, int chipCount)	{
 		this.oddsBet = new LineOddsBet(this, point, chipCount);
 		return this.oddsBet.amount;
 	}
-
 }
