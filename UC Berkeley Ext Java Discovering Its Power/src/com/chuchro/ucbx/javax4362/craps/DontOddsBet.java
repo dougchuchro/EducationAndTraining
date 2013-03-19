@@ -4,19 +4,21 @@ import java.util.*;
  * Like OddsBet, the DontOddBet pays true odds based on the point established.
  * The payout schedule is as follows:
  *	<table border="1" cellpadding="3" cellspacing="0"><tbody>
- *	<tr><th>Point</th>	<th>Payout</th>	<th>AmountMultiple</th>	<th>Example</th></tr>
+ *	<tr><th>Point</th>	<th>Payout</th>	<th>Amount Multiple</th>	<th>Example</th></tr>
  *	<tr><td>4, 10</td>	<td>1-2</td>	<td>2</td>				<td>$20 bet pays $10</td></tr>
  *	<tr><td>5, 9</td>	<td>3-2</td>	<td>3</td>				<td>$15 bet pays $10</td></tr>
  *	<tr><td>6, 8</td>	<td>6-5</td>	<td>6</td>				<td>$12 bet pays $10</td></tr></tbody></table>
- * @author Doug Chuchro																				*/
+ * @author Doug Chuchro																					*/
 public class DontOddsBet extends OddsBet {
-	/**	Name of the bet type																		*/
+	/**	Name of the bet type																			*/
 	public static String BET_NAME = "Don't Odds bet";
 
 	/**	Static lookup table of Don't bet points and their corresponding Don't Odds bet amount multiple.
 	 * 	This table (in the form of a Map) is populated by the static method createPointAmountMultipleMap().
-	 * 	@see	#createPointAmountMultipleMap()														*/
+	 * 	@see	#createPointAmountMultipleMap()															*/
 	private static final Map<Integer, DontOddsBetInfo> DONT_ODDS_MAP = createPointAmountMultipleMap(); 
+	/** Used to populate the DONT_ODDS_MAP with information on all bets of that type.
+	 * @return	The static Map table with bet information.												 */
 	private static Map<Integer, DontOddsBetInfo> createPointAmountMultipleMap()	{
 		Map<Integer, DontOddsBetInfo> tmpMap = new HashMap<Integer, DontOddsBetInfo>();
 		tmpMap.put(4, new DontOddsBetInfo(2, new Double(1.0/2.0)));
@@ -30,8 +32,7 @@ public class DontOddsBet extends OddsBet {
 	
 	/**	Constructor Don't Odds bet.
 	 * @param lineBet	Bet to which this Don't Odds bet is attached.
-	 * @param point		Point set on the come out roll.
-	 */
+	 * @param point		Point set on the come out roll.													 */
 	public DontOddsBet(LineBet lineBet, int point, int chipCount) {
 		super(BET_NAME,																						// betName
 				point, 																						// point
@@ -55,5 +56,4 @@ public class DontOddsBet extends OddsBet {
 			this.payoutRatio	= payoutRatio;
 		}
 	}
-
 }

@@ -1,13 +1,14 @@
 package com.chuchro.ucbx.javax4362.craps;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-/**
- * @author Doug Chuchro (doug@chuchro.net)
- *
- */
+import java.util.*;
+/**	A Place bet is on one of the six field numbers and wins if that number is rolled before a seven (7) is rolled.
+ * The bet pays odds based on the point selected.
+ * The payout schedule is as follows:
+ *	<table border="1" cellpadding="3" cellspacing="0"><tbody>
+ *	<tr><th>Point</th>	<th>Payout</th>	<th>Amount Multiple</th>	<th>Example</th></tr>
+ *	<tr><td>4, 10</td>	<td>9:5</td>	<td>5</td>					<td>$5 bet pays $9</td></tr>
+ *	<tr><td>5, 9</td>	<td>7:5</td>	<td>5</td>					<td>$5 bet pays $7</td></tr>
+ *	<tr><td>6, 8</td>	<td>7:6</td>	<td>6</td>					<td>$6 bet pays $7</td></tr></tbody></table>
+ * @author Doug Chuchro																				*/
 public class PlaceBet extends Bet {
 	/**	Name of the bet type	*/
 	public static String BET_NAME = "Place Bet";
@@ -26,6 +27,8 @@ public class PlaceBet extends Bet {
 	 * 	This table (in the form of a Map) is populated by the static method createPlaceBetTypeMap().
 	 * 	@see	#createPlaceBetTypeMap()*/
 	private static final Map<PlaceBetType, PlaceBetInfo> PLACE_BET_TYPE_MAP = createPlaceBetTypeMap(); 
+	/** Used to populate the PLACE_BET_TYPE_MAP with information on all bets of that type.
+	 * @return	The static Map table with bet information.													 */
 	private static Map<PlaceBetType, PlaceBetInfo> createPlaceBetTypeMap()	{
 		Map<PlaceBetType, PlaceBetInfo> tmpMap = new HashMap<PlaceBetType, PlaceBetInfo>();
 		tmpMap.put(PlaceBetType.FOUR,	new PlaceBetInfo("Four",	4,	5,	5,	new Double(9.0/5.0)));
@@ -37,10 +40,8 @@ public class PlaceBet extends Bet {
 		return Collections.unmodifiableMap(tmpMap);
 	}
 	
-	/**
-	 * Constructor creates a Place bet based on player's input: Place type (number) and bet amount.
-	 * @param pbt	PlaceBetType is the type of place bet the player has selected.
-	 */
+	/**	Constructor creates a Place bet based on player's input: Place type (number) and bet amount.
+	 * @param pbt	PlaceBetType is the type of place bet the player has selected.							 */
 	public PlaceBet(PlaceBetType pbt) {
 		super(BET_NAME, PLACE_BET_TYPE_MAP.get(pbt).minAmount, MAX_AMOUNT, PLACE_BET_TYPE_MAP.get(pbt).amountMultiple);
 		this.placeBetType = pbt;
@@ -50,6 +51,8 @@ public class PlaceBet extends Bet {
 		this.losers.add(PLACE_BET_LOSER);
 		this.payoutRatio = pbi.payoutRatio;		
 	}
+	/** Prompt the player to specify which number (point) they want their Place bet on.
+	 * @return Place bet number.																			 */
 	public static PlaceBetType promptPlaceBetType()	{
 		PlaceBetType pbt = null;
 		System.out.println("What number would you like to put your Place on?\n" +
@@ -87,16 +90,14 @@ public class PlaceBet extends Bet {
 		}
 		return pbt;
 	}
-	/**
-	 * Inner class to hold Place bet information for all of the different Place bet types.
-	 */
+	/**	Inner class to hold Place bet information for all of the different Place bet types.	*/
 	private static class PlaceBetInfo	{
 		String placeBetCommonName;
 		int winner;
 		int minAmount;
 		int amountMultiple;
 		Double payoutRatio;
-		
+		/**	Constructor for inner class																	*/
 		PlaceBetInfo(String propBetCommonName, int winner ,int minAmount ,int amountMultiple ,Double payoutRatio)	{
 			this.placeBetCommonName	= propBetCommonName;
 			this.winner				= winner;
@@ -106,9 +107,7 @@ public class PlaceBet extends Bet {
 		}
 	}
 	
-	/**
-	 * All valid Place bet types
-	 */
+	/** All valid Place bet types																		*/
 	public enum PlaceBetType	{
 		/** 4	*/	FOUR,
 		/** 5	*/	FIVE,

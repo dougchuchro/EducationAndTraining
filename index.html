@@ -33,13 +33,13 @@
       <section id="main_content" class="inner">
         <h3>Welcome to My Java Course Final Project</h3>
 
-<p>This page provides information on my final project for <i>Java: Discovering It's Power</i>, the online Java programming language course offered by UC Berkeley Extension. For my final project, I decided to create a Java program that simulates Craps, the dice game that is popular at many casinos. The rest of this document refers to this Craps sumulator as the "program".</p>
+<p>This page provides information on my final project for <i>Java: Discovering It's Power</i>, the online Java programming language course offered by UC Berkeley Extension. For my final project, I decided to create a Java program that simulates Craps, the dice game that is popular at many casinos. The rest of this document refers to this Craps simulator as the "program".</p>
 
 <h3>Program Feature Overview</h3>
 
-<p>The program attempts to simulate playing Craps, starting with initiating a session by having the player buy a specified amount of chips, then allowing the player to play a series of games and make and number of bets, to finally ending when the player runs out of chips or chooses to quit.  A player can place bets for the game (Pass line and Come line bets) or against the game (Don't Pass and Don't Come bets), and can place odds on these bets. Players can also place side bets that don't necessary hinge on the outcome of the game. Payouts are calculated based on the type and amount of the bet and the roll required to win in accorance with the payout rules established at most casinos.</p>
+<p>The program attempts to simulate playing Craps, starting with initiating a session by having the player buy a specified amount of chips, then allowing the player to play a series of games and make and number of bets, and finally ending when the player runs out of chips or chooses to quit.  A player can place bets for the game (Pass line and Come line bets) or against the game (Don't Pass and Don't Come bets), and can place odds on these bets. Players can also place side bets that don't necessary hinge on the outcome of the game. Payouts are calculated based on the type and amount of the bet and the roll required to win in accordance with the payout rules established at most casinos.</p>
 
-<p>For more infomration on the rules of Craps, please refer to the following sites:</p>
+<p>For more information on the rules of Craps, please refer to the following sites:</p>
 <ul>
 <li><a href="http://en.wikipedia.org/wiki/Craps">Craps</a> page on Wikipedia</li>
 <li><a href="http://www.nextshooter.com/howtoplay">How to Play Craps</a> page on NextShooter.com</li>
@@ -47,10 +47,10 @@
 
 <h3>Program Limitations</h3>
 
-<p>Beacuse of limits on time and maximum amount of code I could write, the program has limitations.  The major limitation are listed here:</p>
+<p>Because of limits on time and maximum amount of code I could write, the program has limitations.  The major limitation are listed here:</p>
 <ul>
-<li>Does not accomodate more than one player (unlike a craps table at a casino)</li>
-<li>Does not allow "hardway" bets, e.g. hard-eight or hard-six</li>
+<li>Does not accommodate more than one player (unlike a craps table at a casino)</li>
+<li>Does not allow "hard way" bets, e.g. hard-eight or hard-six</li>
 <li>Does not all the player to buy more chips, the player must quit the program and restart to buy more chips</li>
 <li>Does not allow the player to pull bets like Odds or Place bets from the table</li>
 <li>Does not allow the player to bump up a bet amount after the bet has been made</li>
@@ -58,8 +58,8 @@
 
 <h3>Program Design</h3>
 
-<p>The program design consists of seventeen (17) classes, each of which attempts to model actual physical objects (Die and Dice) or notional concepts like a Bet, Session, or Game.  To accomodate all of the different bet types, I used Java's object inheritance feature to code the abstract Bet class, which contains fields and methods common to all bets, then extend (and in some cases re-extended) it to create the classes that emulate the various types of bets, for a total of 11 bet classes.  While this seems complex, most of the bet classes are very simple, containing 20 lines of code or so, relying on thier super class to do all the heavy lifting.</p>
-<p>I used enums in the following areas: to define the valid status of a bet, to define the valid rolls of a die, and to define the valid Place Bet and Proposition Bet types.  For these two kinds of bets, the different type are so simialar that it didn't justify creating a sperate class for each type.  For example, a Place bet on the SIX is alomst the same as a Place bet on the EIGHT.  However, I did need a way to define and access information on these bet types like their common name (e.g. a Proposition Bet on ELEVEN is commonly know as a "Yo" bet), the rolls that win the bet, and its payout ratio. I decided to create a static inner class (e.g. PlaceBetInfo) and a static Map that has the bet type enum value as its key and an instance of the static inner class as its value.  My constuctor would use the bet type that the player specified and look up this info in the static map and populate the appropriate member fields.  I'm not sure if this is considered good form in Java programming, but it seems to work pretty well.</p>
+<p>The program design consists of seventeen (17) classes, each of which attempts to model actual physical objects (Die and Dice) or notional concepts like a Bet, Session, or Game.  To accommodate all of the different bet types, I used Java's object inheritance feature to code the abstract Bet class, which contains fields and methods common to all bets, then extend (and in some cases re-extended) it to create the classes that emulate the various types of bets, for a total of 11 bet classes.  While this seems complex, most of the bet classes are very simple, containing 20 lines of code or so, relying on their super class to do all the heavy lifting.</p>
+<p>I used enums in the following areas: to define the valid status of a bet, to define the valid rolls of a die, and to define the valid Place Bet and Proposition Bet types.  For these two kinds of bets, the different type are so similar that it didn't justify creating a separate class for each type.  For example, a Place bet on the SIX is almost the same as a Place bet on the EIGHT.  However, I did need a way to define and access information on these bet types like their common name (e.g. a Proposition Bet on ELEVEN is commonly know as a "Yo" bet), the rolls that win the bet, and its payout ratio. I decided to create a static inner class (e.g. PlaceBetInfo) and a static Map that has the bet type enum value as its key and an instance of the static inner class as its value.  My constructor would use the bet type that the player specified and look up this info in the static map and populate the appropriate member fields.  I'm not sure if this is considered good form in Java programming, but it seems to work pretty well.</p>
 
 <h3>Program Usage</h3>
 
@@ -78,11 +78,22 @@ OpenJDK 64-Bit Server VM (build 23.7-b01, mixed mode)</code></pre>
 
 <h3>Program Documentation (JavaDoc)</h3>
 
-<p>I've spent a good deal of time providing in-line documentation in every class. I've provided brief comment on each class, field, and method.  Although it's not extensive, it should provide a good overview of how the design is structured.  I generated the documents using the javadoc utility provided in the Java Software Development Kit (SDK).  The docs can be found <a href="./doc/index.html">here</a>.
+<p>I've spent a good deal of time providing in-line documentation in every class. I've provided brief comment on each class, field, and method.  Although it's not extensive, it should provide a good overview of how the design is structured.  I generated the documents using the javadoc utility provided in the Java Software Development Kit (SDK) and published them on GitHub Pages.  The docs can be found <a href="./doc/index.html">here</a>.</p>
+
+<h3>Observations and Comments</h3>
+
+<h4>Development Process</h4>
+<p>When I began my development process, I had a firm idea of how I wanted the code structure to look like.  I wanted to create separate objects for the player's session, games, bets, dice, etc.  But I didn't really spend that much time specifying exactly how each class would be written.  After developing the most basic game (pass line bet only) I found myself in an iterative design/develop/test loop where each loop I would add more functions and hone existing ones.  I image that this is similar to the Agile design methodology that I've read a bit about.  While it did require that I rewrite some of the code, it seemed faster than having to write out a detailed spec before I started coding.</p>
+
+<h4>Testing a Game with Random Outcomes</h4>
+<p>One of my biggest challenges was testing my code.  As my feature set grew, my testing became more complex.  This was compounded by the fact that the game results relied on a random roll of simulated dice.  I had to set breakpoints into the code to alter the dice roll outcome to be able to satisfy my test cases.  I have heard of JUnit as a testing mechanism, but didn't have time to research it, much less use it.  It may be a topic worth consideration if the syllabus of this course is expanded.</p>
+
+<h4>Length of Code</h4>
+<p>The parameters of the final project state that it should consist of "between 300 and 1,000 lines of code."  After writing the code I found that I had written just over 1,000 line of code.  However, I was interested and intent on writing JavaDoc comments and revisited my code and did so. The result was over 1,200 line of code.  I hope that adding these extra comments will not adversely affect my grade.</p>
 
 <h3>Code Repository on GitHub</h3>
 
-<p>After the first few module of this course, I decided it was a good idea to use a source code management tool to track and manage the code I was writing for the module exercises. After a bit of research on different SCM tools, I decided to go use git. I also found out about GitHub, which provides free git-based code sharing repositories. I started using their service as a remote backup for my local git repository and have found it very useful. It also allowed me to publish information using GitHub Pages (gh-pages), which is where this site is hosted. You can find my repository for this course at <a href="https://github.com/dougchuchro/EducationAndTraining">https://github.com/dougchuchro/EducationAndTraining</a>.</p>
+<p>After the first few module of this course, I decided it was a good idea to use a source code management tool to track and manage the code I was writing for the module exercises. After a bit of research on different SCM tools, I decided to use git. I also found out about GitHub, which provides free git-based code sharing repositories. I started using their service as a remote backup for my local git repository and have found it very useful. It also allowed me to publish information using GitHub Pages (gh-pages), which is where this site is hosted. You can find my repository for this course at <a href="https://github.com/dougchuchro/EducationAndTraining">https://github.com/dougchuchro/EducationAndTraining</a>.</p>
 
 <h3>Author and Acknowledgements</h3>
 
@@ -99,8 +110,6 @@ OpenJDK 64-Bit Server VM (build 23.7-b01, mixed mode)</code></pre>
         <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
-
-    
 
   </body>
 </html>

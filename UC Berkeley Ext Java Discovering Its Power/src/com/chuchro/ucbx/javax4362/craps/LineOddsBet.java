@@ -3,7 +3,7 @@ import java.util.*;
 /**	Odds bet for the a pass line bet or a come line bet.
  * The payout schedule is as follows:
  * <table border="1" cellpadding="3" cellspacing="0"><tbody>
- *	<tr><th>Point</th>	<th>Payout</th>	<th>AmountMultiple</th>	<th>Example</th></tr>
+ *	<tr><th>Point</th>	<th>Payout</th>	<th>Amount Multiple</th>	<th>Example</th></tr>
  *	<tr><td>4, 10</td>	<td>1:2</td>	<td>1</td>				<td>$10 bet pays $20</td></tr>
  *	<tr><td>5, 9</td>	<td>2:3</td>	<td>2</td>				<td>$10 bet pays $15</td></tr>
  *	<tr><td>6, 8</td>	<td>5:6</td>	<td>5</td>				<td>$10 bet pays $12</td></tr></tbody></table>
@@ -15,7 +15,9 @@ public class LineOddsBet extends OddsBet {
 	/**	Provides a static lookup table of Line bet points and their corresponding Odds bet amount multiple.
 	 * 	This table (in the form of a Map) is populated by the static method createPointAmountMultipleMap().
 	 * 	@see	#createPointAmountMultipleMap()*/
-	private static final Map<Integer, LineOddsBetInfo> LINE_ODDS_MAP = createPointAmountMultipleMap(); 
+	private static final Map<Integer, LineOddsBetInfo> LINE_ODDS_MAP = createPointAmountMultipleMap();
+	/** Used to populate the LINE_ODDS_MAP with information on all bets of that type.
+	 * @return	The static Map table with bet information.												 */
 	private static Map<Integer, LineOddsBetInfo> createPointAmountMultipleMap()	{
 		Map<Integer, LineOddsBetInfo> tmpMap = new HashMap<Integer, LineOddsBetInfo>();
 		tmpMap.put(4, new LineOddsBetInfo(1, new Double(2.0/1.0)));
