@@ -21,7 +21,7 @@ public class PassLineBet extends LineBet {
 	 * @param maxAmt	The maximum amount the bet can be, usually limited by the player's chip count.
 	 * @param betName	Common name of the bet.															 */
 	PassLineBet(int maxAmt, String betName)	{
-		super(BET_NAME, maxAmt);
+		super(betName, maxAmt);
 		super.winners.addAll(COME_OUT_LINE_BET_WINNERS);
 		super.losers.addAll(COME_OUT_LINE_BET_LOSERS);
 	}
